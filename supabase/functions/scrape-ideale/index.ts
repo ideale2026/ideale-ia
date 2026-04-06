@@ -14,7 +14,7 @@ const FETCH_HEADERS = {
   "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8",
 };
 
-const BASE_URL = "https://ideale.lovable.app";
+const BASE_URL = "https://www.idealepapeis.com.br";
 
 // ── helpers ─────────────────────────────────────────────────────────────────
 
