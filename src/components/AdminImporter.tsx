@@ -16,37 +16,37 @@ const SOURCE_CATEGORIES = [
   {
     group: "Papéis de Parede",
     items: [
-      { label: "Todos os Papéis de Parede", url: "https://www.idealepapeis.com.br/papeis-de-parede/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Geométricos", url: "https://www.idealepapeis.com.br/papeis-de-parede/colecao-1/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Linhos", url: "https://www.idealepapeis.com.br/papeis-de-parede/colecao-2/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Lisos", url: "https://www.idealepapeis.com.br/papeis-de-parede/colecao-3/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Tipo Mica", url: "https://www.idealepapeis.com.br/papeis-de-parede/tipo-mica/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Listrados", url: "https://www.idealepapeis.com.br/papeis-de-parede/listrados/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Tijolinho", url: "https://www.idealepapeis.com.br/papeis-de-parede/tijolinho/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Amadeirados", url: "https://www.idealepapeis.com.br/papeis-de-parede/amadeirados/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Infantil", url: "https://www.idealepapeis.com.br/papeis-de-parede/infantil/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Floral", url: "https://www.idealepapeis.com.br/papeis-de-parede/floral/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Marmorizados", url: "https://www.idealepapeis.com.br/papeis-de-parede/marmorizados/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Cimento Queimado", url: "https://www.idealepapeis.com.br/papeis-de-parede/cimento-queimado/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Damasco", url: "https://www.idealepapeis.com.br/papeis-de-parede/damasco/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Brancos Premium", url: "https://www.idealepapeis.com.br/papeis-de-parede/brancos-premium/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "Todos os Papéis de Parede", url: "https://ideale.lovable.app/papeis-de-parede/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "↳ Geométricos", url: "https://ideale.lovable.app/papeis-de-parede/colecao-1/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "↳ Linhos", url: "https://ideale.lovable.app/papeis-de-parede/colecao-2/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "↳ Lisos", url: "https://ideale.lovable.app/papeis-de-parede/colecao-3/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "↳ Tipo Mica", url: "https://ideale.lovable.app/papeis-de-parede/tipo-mica/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "↳ Listrados", url: "https://ideale.lovable.app/papeis-de-parede/listrados/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "↳ Tijolinho", url: "https://ideale.lovable.app/papeis-de-parede/tijolinho/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "↳ Amadeirados", url: "https://ideale.lovable.app/papeis-de-parede/amadeirados/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "↳ Infantil", url: "https://ideale.lovable.app/papeis-de-parede/infantil/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "↳ Floral", url: "https://ideale.lovable.app/papeis-de-parede/floral/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "↳ Marmorizados", url: "https://ideale.lovable.app/papeis-de-parede/marmorizados/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "↳ Cimento Queimado", url: "https://ideale.lovable.app/papeis-de-parede/cimento-queimado/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "↳ Damasco", url: "https://ideale.lovable.app/papeis-de-parede/damasco/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "↳ Brancos Premium", url: "https://ideale.lovable.app/papeis-de-parede/brancos-premium/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
     ],
   },
   {
     group: "Painéis Ripados",
     items: [
-      { label: "Todos os Painéis Ripados", url: "https://www.idealepapeis.com.br/paineis-ripados/", strategySlug: "SIMPLE_UNIT", meta: {} },
-      { label: "↳ Interno", url: "https://www.idealepapeis.com.br/paineis-ripados/interno/", strategySlug: "SIMPLE_UNIT", meta: {} },
-      { label: "↳ Externo", url: "https://www.idealepapeis.com.br/paineis-ripados/externo/", strategySlug: "SIMPLE_UNIT", meta: {} },
+      { label: "Todos os Painéis Ripados", url: "https://ideale.lovable.app/paineis-ripados/", strategySlug: "SIMPLE_UNIT", meta: {} },
+      { label: "↳ Interno", url: "https://ideale.lovable.app/paineis-ripados/interno/", strategySlug: "SIMPLE_UNIT", meta: {} },
+      { label: "↳ Externo", url: "https://ideale.lovable.app/paineis-ripados/externo/", strategySlug: "SIMPLE_UNIT", meta: {} },
     ],
   },
   {
     group: "Outros",
     items: [
-      { label: "Pisos Vinílicos", url: "https://www.idealepapeis.com.br/pisos-vinilicos/", strategySlug: "SIMPLE_UNIT", meta: {} },
-      { label: "Jardins Artificiais", url: "https://www.idealepapeis.com.br/jardins-artificiais/", strategySlug: "SIMPLE_UNIT", meta: {} },
-      { label: "Placas Adesivas", url: "https://www.idealepapeis.com.br/placas-adesivas/", strategySlug: "SIMPLE_UNIT", meta: {} },
-      { label: "Rolos Adesivos", url: "https://www.idealepapeis.com.br/rolos-adesivos/", strategySlug: "SIMPLE_UNIT", meta: {} },
+      { label: "Pisos Vinílicos", url: "https://ideale.lovable.app/pisos-vinilicos/", strategySlug: "SIMPLE_UNIT", meta: {} },
+      { label: "Jardins Artificiais", url: "https://ideale.lovable.app/jardins-artificiais/", strategySlug: "SIMPLE_UNIT", meta: {} },
+      { label: "Placas Adesivas", url: "https://ideale.lovable.app/placas-adesivas/", strategySlug: "SIMPLE_UNIT", meta: {} },
+      { label: "Rolos Adesivos", url: "https://ideale.lovable.app/rolos-adesivos/", strategySlug: "SIMPLE_UNIT", meta: {} },
     ],
   },
 ];
@@ -258,7 +258,7 @@ export default function AdminImporter() {
             Importar do Site Ideale
           </h2>
           <p className="text-sm text-muted-foreground">
-            Mapeie e importe produtos diretamente de idealepapeis.com.br
+            Mapeie e importe produtos diretamente de ideale.lovable.app
           </p>
         </div>
       </div>
