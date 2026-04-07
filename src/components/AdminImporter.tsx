@@ -8,7 +8,18 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Download, Globe, Loader2, CheckCircle2, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
+import { Download, Globe, Loader2, CheckCircle2, AlertCircle, ChevronDown, ChevronUp, Tag } from "lucide-react";
+
+// ── helpers ─────────────────────────────────────────────────────────────────
+
+function slugify(text: string): string {
+  return text
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
 
 // ── Source categories from idealepapeis.com.br ─────────────────────────────
 
@@ -16,37 +27,37 @@ const SOURCE_CATEGORIES = [
   {
     group: "Papéis de Parede",
     items: [
-      { label: "Todos os Papéis de Parede", url: "https://www.idealepapeis.com.br/papeis-de-parede/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Geométricos", url: "https://www.idealepapeis.com.br/papeis-de-parede/colecao-1/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Linhos", url: "https://www.idealepapeis.com.br/papeis-de-parede/colecao-2/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Lisos", url: "https://www.idealepapeis.com.br/papeis-de-parede/colecao-3/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Tipo Mica", url: "https://www.idealepapeis.com.br/papeis-de-parede/tipo-mica/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Listrados", url: "https://www.idealepapeis.com.br/papeis-de-parede/listrados/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Tijolinho", url: "https://www.idealepapeis.com.br/papeis-de-parede/tijolinho/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Amadeirados", url: "https://www.idealepapeis.com.br/papeis-de-parede/amadeirados/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Infantil", url: "https://www.idealepapeis.com.br/papeis-de-parede/infantil/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Floral", url: "https://www.idealepapeis.com.br/papeis-de-parede/floral/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Marmorizados", url: "https://www.idealepapeis.com.br/papeis-de-parede/marmorizados/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Cimento Queimado", url: "https://www.idealepapeis.com.br/papeis-de-parede/cimento-queimado/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Damasco", url: "https://www.idealepapeis.com.br/papeis-de-parede/damasco/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
-      { label: "↳ Brancos Premium", url: "https://www.idealepapeis.com.br/papeis-de-parede/brancos-premium/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 } },
+      { label: "Todos os Papéis de Parede", url: "https://www.idealepapeis.com.br/papeis-de-parede/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Papéis de Parede", targetParent: null },
+      { label: "↳ Geométricos", url: "https://www.idealepapeis.com.br/papeis-de-parede/colecao-1/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Geométricos", targetParent: "Papéis de Parede" },
+      { label: "↳ Linhos", url: "https://www.idealepapeis.com.br/papeis-de-parede/colecao-2/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Linhos", targetParent: "Papéis de Parede" },
+      { label: "↳ Lisos", url: "https://www.idealepapeis.com.br/papeis-de-parede/colecao-3/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Lisos", targetParent: "Papéis de Parede" },
+      { label: "↳ Tipo Mica", url: "https://www.idealepapeis.com.br/papeis-de-parede/tipo-mica/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Tipo Mica", targetParent: "Papéis de Parede" },
+      { label: "↳ Listrados", url: "https://www.idealepapeis.com.br/papeis-de-parede/listrados/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Listrados", targetParent: "Papéis de Parede" },
+      { label: "↳ Tijolinho", url: "https://www.idealepapeis.com.br/papeis-de-parede/tijolinho/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Tijolinho", targetParent: "Papéis de Parede" },
+      { label: "↳ Amadeirados", url: "https://www.idealepapeis.com.br/papeis-de-parede/amadeirados/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Amadeirados", targetParent: "Papéis de Parede" },
+      { label: "↳ Infantil", url: "https://www.idealepapeis.com.br/papeis-de-parede/infantil/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Infantil", targetParent: "Papéis de Parede" },
+      { label: "↳ Floral", url: "https://www.idealepapeis.com.br/papeis-de-parede/floral/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Floral", targetParent: "Papéis de Parede" },
+      { label: "↳ Marmorizados", url: "https://www.idealepapeis.com.br/papeis-de-parede/marmorizados/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Marmorizados", targetParent: "Papéis de Parede" },
+      { label: "↳ Cimento Queimado", url: "https://www.idealepapeis.com.br/papeis-de-parede/cimento-queimado/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Cimento Queimado", targetParent: "Papéis de Parede" },
+      { label: "↳ Damasco", url: "https://www.idealepapeis.com.br/papeis-de-parede/damasco/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Damasco", targetParent: "Papéis de Parede" },
+      { label: "↳ Brancos Premium", url: "https://www.idealepapeis.com.br/papeis-de-parede/brancos-premium/", strategySlug: "WALLPAPER_ROLL", meta: { coverage_factor: 4.3 }, targetCategory: "Brancos Premium", targetParent: "Papéis de Parede" },
     ],
   },
   {
     group: "Painéis Ripados",
     items: [
-      { label: "Todos os Painéis Ripados", url: "https://www.idealepapeis.com.br/paineis-ripados/", strategySlug: "SIMPLE_UNIT", meta: {} },
-      { label: "↳ Interno", url: "https://www.idealepapeis.com.br/paineis-ripados/interno/", strategySlug: "SIMPLE_UNIT", meta: {} },
-      { label: "↳ Externo", url: "https://www.idealepapeis.com.br/paineis-ripados/externo/", strategySlug: "SIMPLE_UNIT", meta: {} },
+      { label: "Todos os Painéis Ripados", url: "https://www.idealepapeis.com.br/paineis-ripados/", strategySlug: "SIMPLE_UNIT", meta: {}, targetCategory: "Painéis Ripados", targetParent: null },
+      { label: "↳ Interno", url: "https://www.idealepapeis.com.br/paineis-ripados/interno/", strategySlug: "SIMPLE_UNIT", meta: {}, targetCategory: "Interno", targetParent: "Painéis Ripados" },
+      { label: "↳ Externo", url: "https://www.idealepapeis.com.br/paineis-ripados/externo/", strategySlug: "SIMPLE_UNIT", meta: {}, targetCategory: "Externo", targetParent: "Painéis Ripados" },
     ],
   },
   {
     group: "Outros",
     items: [
-      { label: "Pisos Vinílicos", url: "https://www.idealepapeis.com.br/pisos-vinilicos/", strategySlug: "SIMPLE_UNIT", meta: {} },
-      { label: "Jardins Artificiais", url: "https://www.idealepapeis.com.br/jardins-artificiais/", strategySlug: "SIMPLE_UNIT", meta: {} },
-      { label: "Placas Adesivas", url: "https://www.idealepapeis.com.br/placas-adesivas/", strategySlug: "SIMPLE_UNIT", meta: {} },
-      { label: "Rolos Adesivos", url: "https://www.idealepapeis.com.br/rolos-adesivos/", strategySlug: "SIMPLE_UNIT", meta: {} },
+      { label: "Pisos Vinílicos", url: "https://www.idealepapeis.com.br/pisos-vinilicos/", strategySlug: "SIMPLE_UNIT", meta: {}, targetCategory: "Pisos Vinílicos", targetParent: null },
+      { label: "Jardins Artificiais", url: "https://www.idealepapeis.com.br/jardins-artificiais/", strategySlug: "SIMPLE_UNIT", meta: {}, targetCategory: "Jardins Artificiais", targetParent: null },
+      { label: "Placas Adesivas", url: "https://www.idealepapeis.com.br/placas-adesivas/", strategySlug: "SIMPLE_UNIT", meta: {}, targetCategory: "Placas Adesivas", targetParent: null },
+      { label: "Rolos Adesivos", url: "https://www.idealepapeis.com.br/rolos-adesivos/", strategySlug: "SIMPLE_UNIT", meta: {}, targetCategory: "Rolos Adesivos", targetParent: null },
     ],
   },
 ];
@@ -74,11 +85,17 @@ export default function AdminImporter() {
   const queryClient = useQueryClient();
 
   // ── DB data ──────────────────────────────────────────────────────────────
-  const [categories, setCategories] = useState<{ id: string; name: string; slug: string }[]>([]);
+  const [categories, setCategories] = useState<{ id: string; name: string; slug: string; parent_id: string | null }[]>([]);
   const [strategies, setStrategies] = useState<{ id: string; name: string; slug: string }[]>([]);
 
+  const refreshCategories = async () => {
+    const { data } = await supabase.from("categories").select("id, name, slug, parent_id");
+    if (data) setCategories(data);
+    return data || [];
+  };
+
   useEffect(() => {
-    supabase.from("categories").select("id, name, slug").then(({ data }) => data && setCategories(data));
+    refreshCategories();
     supabase.from("calculation_strategies").select("id, name, slug").then(({ data }) => data && setStrategies(data));
   }, []);
 
@@ -86,14 +103,75 @@ export default function AdminImporter() {
   const [sourceUrl, setSourceUrl] = useState("");
   const [targetCategoryId, setTargetCategoryId] = useState("none");
   const [targetStrategyId, setTargetStrategyId] = useState("");
+  const [autoCreatingCategory, setAutoCreatingCategory] = useState(false);
 
-  // When source changes, pre-fill strategy
-  const handleSourceChange = (url: string) => {
+  // Find or create a category by name, optionally under a parent
+  const findOrCreateCategory = async (
+    name: string,
+    parentName: string | null,
+    currentCats: { id: string; name: string; slug: string; parent_id: string | null }[]
+  ): Promise<{ id: string; name: string; slug: string; parent_id: string | null } | null> => {
+    const catSlug = slugify(name);
+
+    // If it has a parent, find/create the parent first
+    let parentId: string | null = null;
+    if (parentName) {
+      const parentSlug = slugify(parentName);
+      let parent = currentCats.find((c) => c.slug === parentSlug && !c.parent_id);
+      if (!parent) {
+        const { data, error } = await supabase
+          .from("categories")
+          .upsert({ name: parentName, slug: parentSlug }, { onConflict: "slug" })
+          .select("id, name, slug, parent_id")
+          .single();
+        if (error) { console.error("Error creating parent category:", error); return null; }
+        parent = data;
+        currentCats.push(data);
+      }
+      parentId = parent.id;
+    }
+
+    // Find or create the target category
+    let cat = currentCats.find((c) => c.slug === catSlug && c.parent_id === parentId);
+    if (!cat) {
+      const insertData: { name: string; slug: string; parent_id?: string } = { name, slug: catSlug };
+      if (parentId) insertData.parent_id = parentId;
+      const { data, error } = await supabase
+        .from("categories")
+        .upsert(insertData, { onConflict: "slug" })
+        .select("id, name, slug, parent_id")
+        .single();
+      if (error) { console.error("Error creating category:", error); return null; }
+      cat = data;
+      currentCats.push(data);
+    }
+
+    return cat;
+  };
+
+  // When source changes, pre-fill strategy AND auto-create/select category
+  const handleSourceChange = async (url: string) => {
     setSourceUrl(url);
     const src = ALL_SOURCE_ITEMS.find((i) => i.url === url);
-    if (src) {
-      const strat = strategies.find((s) => s.slug === src.strategySlug);
-      if (strat) setTargetStrategyId(strat.id);
+    if (!src) return;
+
+    // Auto-fill strategy
+    const strat = strategies.find((s) => s.slug === src.strategySlug);
+    if (strat) setTargetStrategyId(strat.id);
+
+    // Auto-create/select category
+    if (src.targetCategory) {
+      setAutoCreatingCategory(true);
+      try {
+        const freshCats = await refreshCategories();
+        const cat = await findOrCreateCategory(src.targetCategory, src.targetParent, [...freshCats]);
+        if (cat) {
+          setTargetCategoryId(cat.id);
+          await refreshCategories();
+        }
+      } finally {
+        setAutoCreatingCategory(false);
+      }
     }
   };
 
@@ -272,7 +350,7 @@ export default function AdminImporter() {
             {/* Source category */}
             <div className="space-y-1">
               <Label>Categoria de Origem *</Label>
-              <Select value={sourceUrl} onValueChange={handleSourceChange} disabled={stage === "listed"}>
+              <Select value={sourceUrl} onValueChange={handleSourceChange} disabled={stage === "listed" || autoCreatingCategory}>
                 <SelectTrigger>
                   <SelectValue placeholder="Selecione a categoria" />
                 </SelectTrigger>
@@ -293,20 +371,42 @@ export default function AdminImporter() {
               </Select>
             </div>
 
-            {/* Target category in our DB */}
+            {/* Auto-detected category */}
             <div className="space-y-1">
               <Label>Categoria no Sistema</Label>
-              <Select value={targetCategoryId} onValueChange={setTargetCategoryId}>
-                <SelectTrigger>
-                  <SelectValue placeholder="(sem categoria)" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="none">Sem categoria</SelectItem>
-                  {categories.map((c) => (
-                    <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {autoCreatingCategory ? (
+                <div className="flex items-center gap-2 h-10 px-3 rounded-md border bg-muted/50 text-sm text-muted-foreground">
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  <span>Criando categoria...</span>
+                </div>
+              ) : targetCategoryId && targetCategoryId !== "none" ? (
+                <div className="flex items-center gap-2 h-10 px-3 rounded-md border border-primary/30 bg-primary/5">
+                  <Tag className="h-3.5 w-3.5 text-primary shrink-0" />
+                  <span className="text-sm font-medium truncate">
+                    {categories.find((c) => c.id === targetCategoryId)?.name ?? "Categoria"}
+                  </span>
+                  <button
+                    className="ml-auto text-xs text-muted-foreground hover:text-foreground shrink-0 underline"
+                    onClick={() => setTargetCategoryId("none")}
+                  >
+                    remover
+                  </button>
+                </div>
+              ) : (
+                <Select value={targetCategoryId} onValueChange={setTargetCategoryId}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Sem categoria" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">Sem categoria</SelectItem>
+                    {categories.map((c) => (
+                      <SelectItem key={c.id} value={c.id}>
+                        {c.parent_id ? "↳ " : ""}{c.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
             </div>
 
             {/* Strategy */}
@@ -325,8 +425,12 @@ export default function AdminImporter() {
             </div>
           </div>
 
-          <Button onClick={handleList} disabled={!sourceUrl || !targetStrategyId}>
-            <Globe className="mr-2 h-4 w-4" /> Mapear Produtos
+          <Button onClick={handleList} disabled={!sourceUrl || !targetStrategyId || autoCreatingCategory}>
+            {autoCreatingCategory ? (
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Configurando categoria...</>
+            ) : (
+              <><Globe className="mr-2 h-4 w-4" /> Mapear Produtos</>
+            )}
           </Button>
         </div>
       )}
@@ -466,6 +570,8 @@ export default function AdminImporter() {
               setListedProducts([]);
               setResults([]);
               setSourceUrl("");
+              setTargetCategoryId("none");
+              setTargetStrategyId("");
             }}
           >
             Nova importação
